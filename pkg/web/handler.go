@@ -14,6 +14,7 @@ import (
 )
 
 type HandlerContext interface {
+	HandleRoot(w http.ResponseWriter, r *http.Request)
 	HandleUtilityEpoch(w http.ResponseWriter, r *http.Request)
 	HandleUtilityIP(w http.ResponseWriter, r *http.Request)
 	HandleStartHack(w http.ResponseWriter, r *http.Request)
@@ -278,6 +279,46 @@ func (c *handlerContext) HandleUtilityEpoch(w http.ResponseWriter, _ *http.Reque
 func (c *handlerContext) HandleUtilityIP(w http.ResponseWriter, r *http.Request) {
 	remoteIp := GetRemoteAddress(r)
 	responseWithCodeAndMessage(w, http.StatusOK, remoteIp)
+}
+
+func (c *handlerContext) HandleRoot(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	responseWithCodeAndMessage(w, http.StatusOK, `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BPC Hack API Server</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        h2 { color: #666; margin-top: 30px; }
+        ul { line-height: 1.6; }
+        li { margin: 5px 0; }
+        code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>BPC Hack API Server</h1>
+    <p>Status: <strong style="color: green;">Running</strong></p>
+    <p>This is a proxy server for interacting with BPC eCommerce products used in local banks.</p>
+
+    <h2>Available Endpoints:</h2>
+    <ul>
+        <li><code>GET /api/epoch</code> - Get server epoch timestamp</li>
+        <li><code>GET /api/ip</code> - Get client IP address</li>
+        <li><code>POST /api/v1/start-hack</code> - Start BPC hack process</li>
+        <li><code>POST /api/v1/submit-card</code> - Submit card information</li>
+        <li><code>POST /api/v1/resend-code</code> - Resend SMS verification code</li>
+        <li><code>POST /api/v1/confirm-payment</code> - Confirm payment with OTP</li>
+    </ul>
+
+    <h2>API Documentation:</h2>
+    <p>See <code>api/open_api.yaml</code> for complete OpenAPI specification.</p>
+
+    <h2>Health Check:</h2>
+    <p>Test endpoint: <a href="/api/epoch">/api/epoch</a></p>
+</body>
+</html>`)
 }
 
 func NewHandlerContext(service pkg.Service) HandlerContext {

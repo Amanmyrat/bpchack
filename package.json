@@ -1,0 +1,12 @@
+{
+  "name": "bpchack-api-docs",
+  "version": "1.0.0",
+  "description": "API documentation viewer for BPC Hack",
+  "scripts": {
+    "docs": "redoc-cli serve api/open_api.yaml --port 8080 --watch",
+    "docs:build": "redoc-cli build api/open_api.yaml -o docs/index.html"
+  },
+  "devDependencies": {
+    "redoc-cli": "^0.13.21"
+  }
+}

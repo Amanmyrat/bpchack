@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BPC Hack API Documentation</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .endpoint {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.2s ease;
+        }
+        .endpoint:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 10px;
+            min-width: 60px;
+            text-align: center;
+        }
+        .method.get { background: #10b981; color: white; }
+        .method.post { background: #f59e0b; color: white; }
+        .path {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-weight: bold;
+            color: #1f2937;
+            font-size: 1.1em;
+        }
+        .description {
+            color: #64748b;
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+        .params {
+            background: #f1f5f9;
+            border-left: 4px solid #3b82f6;
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .response {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .warning { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+        h2 {
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #374151;
+            margin-top: 20px;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>BPC Hack API Documentation</h1>
+        <p>Complete API reference for BPC eCommerce hacking</p>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>🚀 Quick Start</h2>
+            <p>This API provides endpoints to interact with BPC eCommerce systems. All requests should be made to your running server.</p>
+
+            <h3>Base URL</h3>
+            <p><code>http://localhost:9090</code></p>
+
+            <h3>Authentication</h3>
+            <p>No authentication required for basic endpoints.</p>
+
+            <div class="status info">
+                <strong>Make sure your BPC Hack server is running:</strong><br>
+                <code>docker-compose up --build</code><br>
+                Server will be available at: <a href="http://localhost:9090" target="_blank">http://localhost:9090</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Available Endpoints</h2>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/epoch</span>
+                <div class="description">Returns server epoch timestamp in seconds</div>
+                <div class="response">Response: Plain text number (e.g., "1703123456")</div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/ip</span>
+                <div class="description">Returns client IP address as seen by server</div>
+                <div class="response">Response: Plain text IP address</div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/v1/start-hack</span>
+                <div class="description">Start BPC hack process - first step in payment workflow</div>
+                <div class="params">
+                    app: Application name (3-16 alphanumeric chars)<br>
+                    id: User identity (3-64 alphanumeric chars)<br>
+                    url: Payment URL from BPC server
+                </div>
+                <div class="response">Response: JSON with status, md-order, timing info, etc.</div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/v1/submit-card</span>
+                <div class="description">Submit card information - second step</div>
+                <div class="params">
+                    app: Application name<br>
+                    id: User identity<br>
+                    md-order: Order ID from start-hack<br>
+                    card-number: 16-digit card number<br>
+                    card-expiry: Expiry in YYYYMM format<br>
+                    name-on-card: Cardholder name (4-32 chars)<br>
+                    card-cvc: 3-digit CVC (optional)
+                </div>
+                <div class="response">Response: JSON with ACS URLs and session info</div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/v1/resend-code</span>
+                <div class="description">Resend SMS verification code - third step</div>
+                <div class="params">
+                    app: Application name<br>
+                    id: User identity<br>
+                    acs-req-id: ACS request ID<br>
+                    acs-session-url: ACS session URL
+                </div>
+                <div class="response">Response: JSON with status and remaining attempts</div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/v1/confirm-payment</span>
+                <div class="description">Confirm payment with OTP - final step</div>
+                <div class="params">
+                    app: Application name<br>
+                    id: User identity<br>
+                    md-order: Order ID<br>
+                    acs-req-id: ACS request ID<br>
+                    acs-session-url: ACS session URL<br>
+                    otp: SMS one-time password<br>
+                    term-url: Termination URL
+                </div>
+                <div class="response">Response: JSON with final status and redirect URL</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📄 Request Examples</h2>
+
+            <h3>Start Hack (POST /api/v1/start-hack)</h3>
+            <pre>curl -X POST http://localhost:9090/api/v1/start-hack \
+  -d "app=myapp&id=user123&url=https://bpc-server/payment?mdOrder=12345"</pre>
+
+            <h3>Submit Card (POST /api/v1/submit-card)</h3>
+            <pre>curl -X POST http://localhost:9090/api/v1/submit-card \
+  -d "app=myapp&id=user123&md-order=12345&card-number=4111111111111111&card-expiry=1225&name-on-card=JOHN DOE&card-cvc=123"</pre>
+
+            <h3>Confirm Payment (POST /api/v1/confirm-payment)</h3>
+            <pre>curl -X POST http://localhost:9090/api/v1/confirm-payment \
+  -d "app=myapp&id=user123&md-order=12345&acs-req-id=abc123&acs-session-url=https://acs-server/auth&otp=123456&term-url=https://bpc-server/term"</pre>
+        </div>
+
+        <div class="section">
+            <h2>📖 Full OpenAPI Specification</h2>
+            <p>For complete request/response schemas, validation rules, and detailed documentation:</p>
+            <ul>
+                <li><strong>OpenAPI File:</strong> <code>api/open_api.yaml</code></li>
+                <li><strong>Online Viewer:</strong> Import the YAML file into <a href="https://editor.swagger.io/" target="_blank">Swagger Editor</a></li>
+                <li><strong>Alternative:</strong> Use any OpenAPI-compatible viewer</li>
+            </ul>
+
+            <div class="status warning">
+                <strong>Note:</strong> This documentation provides a simplified view. The full OpenAPI spec contains complete schema definitions, validation patterns, and detailed field descriptions.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Response Status Codes</h2>
+            <ul>
+                <li><code>ok</code> - Success</li>
+                <li><code>network-error</code> - Network connectivity issues</li>
+                <li><code>already-processed</code> - Order already completed</li>
+                <li><code>wrong-otp</code> - Invalid OTP code</li>
+                <li><code>operation-cancelled</code> - Operation was cancelled</li>
+                <li><code>specify-cvc</code> - CVC code required</li>
+                <li><code>other-error</code> - Generic error</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>BPC Hack API Documentation | Generated from OpenAPI 3.0.1 specification</p>
+    </div>
+</body>
+</html>

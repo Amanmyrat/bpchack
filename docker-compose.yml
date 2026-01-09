@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  bpchack:
+    build: .
+    ports:
+      - "9090:9090"
+    environment:
+      - BPCHACK_CONFIG_FILE=/root/config.json
+    volumes:
+      # Mount config file for easy editing
+      - ./configs/bpchackd.config.json:/root/config.json:ro
+      # Optional: Mount .env file for environment variables
+      - ./.env:/root/.env:ro
+    restart: unless-stopped
+    # Optional: Add healthcheck
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/api/epoch"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
